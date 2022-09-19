@@ -7,7 +7,7 @@ const Home: NextPage = () => {
 		setCounter((prev) => prev + 1);
 	};
 	return (
-		<div style={{ textAlign: "center" }}>
+		<div style={{ textAlign: "center" }} data-test="component-home">
 			<h1>The count is {counter}</h1>
 			<button onClick={onClickCounter}>Increment counter</button>
 		</div>
