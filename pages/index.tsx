@@ -8,8 +8,10 @@ const Home: NextPage = () => {
 	};
 	return (
 		<div style={{ textAlign: "center" }} data-test="component-home">
-			<h1>The count is {counter}</h1>
-			<button onClick={onClickCounter}>Increment counter</button>
+			<h1 data-test="counter-display">The count is {counter}</h1>
+			<button data-test="increment-button" onClick={onClickCounter}>
+				Increment counter
+			</button>
 		</div>
 	);
 };
