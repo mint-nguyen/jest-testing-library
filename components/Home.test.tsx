@@ -1,12 +1,13 @@
+import "jsdom-global/register";
 import React from "react";
-import Enzyme, { shallow, ShallowWrapper } from "enzyme";
-import Home from "../pages/index";
+import Enzyme, { mount, shallow, ShallowWrapper } from "enzyme";
+import HomePage from "./Home";
 import EnzymeAdapter from "@wojtekmaj/enzyme-adapter-react-17";
 
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
 const setup = (props?: {}, state?: null) => {
-	return shallow(<Home {...props} />);
+	return shallow(<HomePage {...props} />);
 };
 
 const findByTestAttr = (wrapper: ShallowWrapper, val: string) => {
@@ -29,6 +30,12 @@ test("renders counter display", () => {
 	const wrapper = setup();
 	const counter = findByTestAttr(wrapper, "counter-display");
 	expect(counter.length).toBe(1);
+});
+
+test("counter starts at 0", () => {
+	const wrapper = mount(<HomePage />);
+	const initialCounterState = wrapper.state("counter");
+	expect(initialCounterState).toBe(0);
 });
 
 test("clicking button increments counter display", () => {});
