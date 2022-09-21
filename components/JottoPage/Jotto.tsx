@@ -54,7 +54,7 @@ class JottoPage extends Component<{}, MyState> {
 		return (
 			<div>
 				<h1>Jotto</h1>
-				<input onChange={this.onChangeInput} />
+				<input value={this.state.guessedWord} onChange={this.onChangeInput} />
 				<button onClick={this.onClickButton}>Guess</button>
 				<p>Try to guess the secret word</p>
 				{this.state.wordFound && (
