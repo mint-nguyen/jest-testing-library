@@ -6,8 +6,11 @@ import EnzymeAdapter from "@wojtekmaj/enzyme-adapter-react-17";
 
 Enzyme.configure({ adapter: new EnzymeAdapter() });
 
-const setup = (props?: {}, state?: null) => {
-	return shallow(<HomePage {...props} />);
+const setup = (props?: {}, state?: {}) => {
+	const wrapper = shallow(<HomePage {...props} />);
+	if (state) wrapper.setState(state);
+
+	return wrapper;
 };
 
 const findByTestAttr = (wrapper: ShallowWrapper, val: string) => {
@@ -26,6 +29,12 @@ test("renders increment button", () => {
 	expect(button.length).toBe(1);
 });
 
+test("renders decrement button", () => {
+	const wrapper = setup();
+	const button = findByTestAttr(wrapper, "decrement-button");
+	expect(button.length).toBe(1);
+});
+
 test("renders counter display", () => {
 	const wrapper = setup();
 	const counter = findByTestAttr(wrapper, "counter-display");
@@ -38,4 +47,22 @@ test("counter starts at 0", () => {
 	expect(initialCounterState).toBe(0);
 });
 
-test("clicking button increments counter display", () => {});
+test("clicking button increments counter display", () => {
+	const counter = 7;
+	const wrapper = setup(null, { counter });
+	const button = findByTestAttr(wrapper, "increment-button");
+	button.simulate("click");
+	const counterDisplay = findByTestAttr(wrapper, "counter-display");
+
+	expect(counterDisplay.text()).toContain(`${counter + 1}`);
+});
+
+test("clicking button decrements counter display", () => {
+	const counter = 7;
+	const wrapper = setup(null, { counter });
+	const button = findByTestAttr(wrapper, "decrement-button");
+	button.simulate("click");
+	const counterDisplay = findByTestAttr(wrapper, "counter-display");
+
+	expect(counterDisplay.text()).toContain(`${counter - 1}`);
+});
