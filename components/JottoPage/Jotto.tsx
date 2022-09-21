@@ -58,7 +58,9 @@ class JottoPage extends Component<{}, MyState> {
 				<button onClick={this.onClickButton}>Guess</button>
 				<p>Try to guess the secret word</p>
 				{this.state.wordFound && (
-					<h3>Congrats, you found the secret word: {this.secretWord}</h3>
+					<h3 style={{ color: "green" }} data-test="congrats-msg">
+						Congrats, you found the secret word: {this.secretWord}
+					</h3>
 				)}
 				{this.state.showGuessedWordTable && (
 					<table style={{ display: "inline-table", width: 500 }}>
